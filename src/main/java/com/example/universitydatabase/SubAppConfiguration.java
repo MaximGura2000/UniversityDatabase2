@@ -3,6 +3,7 @@ package com.example.universitydatabase;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SubAppConfiguration {
 
+  public static final String SUB_APP_STATUS = "subAppStatus";
   @Value("${subAppDataStore.mongo.primary}")
   private String mongoPrimary;
   @Value("${subAppDataStore.mongo.database}")
@@ -21,7 +23,9 @@ public class SubAppConfiguration {
       MongoDatabase mongoUniversityDatabase = mongoClient.getDatabase(databaseName);
 
       //Create database and SubAppStatus collection
-      mongoUniversityDatabase.createCollection("subAppStatus");
+      if (!mongoUniversityDatabase.listCollectionNames().into(new ArrayList<>()).contains(SUB_APP_STATUS)) {
+        mongoUniversityDatabase.createCollection(SUB_APP_STATUS);
+      }
     }
   }
 }
