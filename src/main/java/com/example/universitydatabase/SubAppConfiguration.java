@@ -1,5 +1,7 @@
 package com.example.universitydatabase;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
@@ -27,5 +29,12 @@ public class SubAppConfiguration {
         mongoUniversityDatabase.createCollection(SUB_APP_STATUS);
       }
     }
+  }
+
+  @Bean
+  public ObjectMapper objectMapper() {
+    ObjectMapper objectMapper = new ObjectMapper();
+    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true);
+    return objectMapper;
   }
 }

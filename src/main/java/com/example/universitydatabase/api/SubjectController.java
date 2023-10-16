@@ -8,6 +8,7 @@ import com.example.universitydatabase.annotation.CommandController;
 import com.example.universitydatabase.api.dto.subject.SubjectCreateDtoIn;
 import com.example.universitydatabase.api.dto.subject.SubjectCreateDtoOut;
 import java.util.Objects;
+import javax.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.RequestBody;

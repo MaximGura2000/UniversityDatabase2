@@ -3,6 +3,7 @@ package com.example.universitydatabase.entity;
 public class Subject {
 
   private String subjectName;
+  private String shortName;
   private int subjectCredits;
 
   public void setSubjectName(String subjectName) {
@@ -11,6 +12,14 @@ public class Subject {
 
   public String getSubjectName() {
     return subjectName;
+  }
+
+  public String getShortName() {
+    return shortName;
+  }
+
+  public void setShortName(String shortName) {
+    this.shortName = shortName;
   }
 
   public int getSubjectCredits() {
