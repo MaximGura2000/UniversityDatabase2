@@ -1,6 +1,6 @@
 package com.example.universitydatabase.exception;
 
-public class SubjectRuntimeException extends AppRuntimeException{
+public class SubjectRuntimeException extends AppRuntimeException {
 
   private static final String SUB_APP_SUBJECT_CREATE = "subject/create";
   private static final String INVALID_DTO_IN = "/invalidDtoIn";

@@ -1,6 +1,6 @@
 package com.example.universitydatabase.entity;
 
-public class Subject {
+public class Subject extends AbstractMongoEntity {
 
   private String subjectName;
   private String shortName;

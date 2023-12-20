@@ -1,23 +1,11 @@
 package com.example.universitydatabase.entity;
 
-import org.springframework.data.annotation.Id;
+public abstract class Person extends AbstractMongoEntity {
 
-public abstract class Person {
-
-  @Id
-  private String id;
   private String name;
   private String surname;
   private Integer birthYear;
   private int salary;
-
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
 
   public String getName() {
     return name;
