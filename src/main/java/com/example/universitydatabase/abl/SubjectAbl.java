@@ -8,6 +8,8 @@ import com.example.universitydatabase.exception.SubjectRuntimeException;
 import com.example.universitydatabase.exception.SubjectRuntimeException.Error;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.Set;
+import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,8 +33,13 @@ public class SubjectAbl {
     SubjectCreateDtoOut dtoOut = new SubjectCreateDtoOut();
 
     // 1 validate dtoIn
-    if (!this.validator.validate(dtoIn).isEmpty()) {
-      throw new SubjectRuntimeException(Error.INVALID_DTO_IN_CREATE, new HashMap<>());
+    Set<ConstraintViolation<SubjectCreateDtoIn>> validationResult = this.validator.validate(dtoIn);
+    if (!validationResult.isEmpty()) {
+      HashMap<String, Object> params = new HashMap<>();
+      for (ConstraintViolation<SubjectCreateDtoIn> result: validationResult) {
+        params.put(result.getMessage(), result.getInvalidValue());
+      }
+      throw new SubjectRuntimeException(Error.INVALID_DTO_IN_CREATE, params);
     }
 
     Subject subject = new Subject();
