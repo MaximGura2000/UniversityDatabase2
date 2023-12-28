@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.mongodb.core.MongoTemplate;
 
 @Configuration
 public class SubAppConfiguration {
@@ -29,6 +30,12 @@ public class SubAppConfiguration {
         mongoUniversityDatabase.createCollection(SUB_APP_STATUS);
       }
     }
+  }
+
+  @Bean
+  public MongoTemplate mongoTemplate() {
+    MongoClient mongoClient = MongoClients.create(mongoPrimary);
+    return new MongoTemplate(mongoClient, databaseName);
   }
 
   @Bean

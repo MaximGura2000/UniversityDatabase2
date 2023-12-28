@@ -11,12 +11,14 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Objects;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bson.BasicBSONEncoder;
 import org.bson.BasicBSONObject;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -24,37 +26,30 @@ import org.springframework.data.mongodb.core.index.IndexDefinition;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
-@Component
+@Configuration
 public abstract class AbstractMongoDao<T extends AbstractMongoEntity> {
 
   private static final Logger LOGGER = LogManager.getLogger(AbstractMongoDao.class);
-
-  @Value("${subAppDataStore.mongo.primary}")
-  private String mongoPrimary;
-  @Value("${subAppDataStore.mongo.database}")
-  private String databaseName;
 
   protected static final String ATTR_ID = "_id";
 
   //Class which is handled by this implementation. Each dao has to define it's entityClass class.
   private Class<T> entityClass;
 
-  private MongoClient mongoClient;
-  private MongoDatabase mongoDatabase;
+  private final MongoTemplate mongoTemplate;
   private MongoCollection<Document> collection;
-  private MongoTemplate mongoTemplate;
 
-  public AbstractMongoDao(Class<T> collectionClass) {
-    this.mongoClient = MongoClients.create(mongoPrimary);
-    this.mongoDatabase = mongoClient.getDatabase(databaseName);
+  public AbstractMongoDao(Class<T> collectionClass, MongoTemplate mongoTemplate) {
+    this.mongoTemplate = Objects.requireNonNull(mongoTemplate);
 
-    if (!this.mongoDatabase.listCollectionNames().into(new ArrayList<>()).contains(collectionClass.getSimpleName())) {
-      this.mongoDatabase.createCollection(collectionClass.getSimpleName());
+    this.setEntityClass(collectionClass);
+
+    if (!mongoTemplate.collectionExists(collectionClass)) {
+      this.mongoTemplate.createCollection(collectionClass);
       createSchema();
     }
 
-    this.collection = mongoDatabase.getCollection(collectionClass.getSimpleName());
-    this.setEntityClass(collectionClass);
+    this.collection = mongoTemplate.getCollection(collectionClass.getSimpleName());
   }
 
   public Class<T> getEntityClass() {
