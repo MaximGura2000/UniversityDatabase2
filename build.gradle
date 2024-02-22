@@ -9,7 +9,7 @@ group = 'com.maxgura'
 version = '0.0.1-SNAPSHOT'
 
 java {
-  sourceCompatibility = '11'
+  sourceCompatibility = '17'
 }
 
 repositories {
@@ -22,6 +22,7 @@ dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-validation'
   providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 }
 
 tasks.named('test') {

@@ -6,6 +6,7 @@ import com.example.universitydatabase.dao.mongo.SubjectMongoDao;
 import com.example.universitydatabase.entity.Subject;
 import com.example.universitydatabase.exception.SubjectRuntimeException;
 import com.example.universitydatabase.exception.SubjectRuntimeException.Error;
+import com.mongodb.MongoException;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Set;
@@ -47,7 +48,16 @@ public class SubjectAbl {
     subject.setSubjectCredits(dtoIn.getSubjectCredits());
     subject.setShortName(dtoIn.getShortName());
 
-    this.subjectMongoDao.create(subject);
+    //TODO add unikness of shortName
+
+    try {
+      this.subjectMongoDao.create(subject);
+      dtoOut.setSubject(subject);
+    } catch (MongoException exception) {
+      LOGGER.info("Error while adding subject to MongoDb");
+      throw new SubjectRuntimeException(Error.MONGO_ERROR_CREATE, exception, new HashMap<>());
+    }
+
 
     LOGGER.info("Subject create finished");
     return dtoOut;

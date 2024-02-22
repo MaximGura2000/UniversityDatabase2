@@ -7,13 +7,13 @@ import javax.validation.constraints.Size;
 public class SubjectCreateDtoIn {
 
   @NotNull
-  @Size(min = 5, max = 15)
+  @Size(min = 5, max = 25)
   private String subjectName;
   @Size(min = 3, max = 3)
+  @NotNull
   private String shortName;
   @NotNull
-  @Min(0)
-  @Max(15)
+  @Min(0) @Max(15)
   private Integer subjectCredits;
 
   public String getSubjectName() {

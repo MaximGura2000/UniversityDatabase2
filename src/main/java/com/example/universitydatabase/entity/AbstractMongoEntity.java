@@ -5,8 +5,8 @@ import java.time.Instant;
 public class AbstractMongoEntity {
 
   private String id;
-  private Instant ceTime;
-  private Instant meTime;
+  private Instant createEntityTime;
+  private Instant modifyEntityTime;
   private int modifyNumber;
 
   public String getId() {
@@ -17,20 +17,20 @@ public class AbstractMongoEntity {
     this.id = id;
   }
 
-  public Instant getCeTime() {
-    return ceTime;
+  public Instant getCreateEntityTime() {
+    return createEntityTime;
   }
 
-  public void setCeTime(Instant ceTime) {
-    this.ceTime = ceTime;
+  public void setCreateEntityTime(Instant createEntityTime) {
+    this.createEntityTime = createEntityTime;
   }
 
-  public Instant getMeTime() {
-    return meTime;
+  public Instant getModifyEntityTime() {
+    return modifyEntityTime;
   }
 
-  public void setMeTime(Instant meTime) {
-    this.meTime = meTime;
+  public void setModifyEntityTime(Instant modifyEntityTime) {
+    this.modifyEntityTime = modifyEntityTime;
   }
 
   public int getModifyNumber() {

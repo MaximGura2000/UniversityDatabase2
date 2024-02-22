@@ -5,25 +5,19 @@ import com.example.universitydatabase.enums.DatastoreConstants;
 import com.example.universitydatabase.exception.DatascoreRuntimeException;
 import com.example.universitydatabase.exception.DatascoreRuntimeException.Error;
 import com.mongodb.DuplicateKeyException;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Objects;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bson.BasicBSONEncoder;
 import org.bson.BasicBSONObject;
 import org.bson.Document;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.index.IndexDefinition;
-import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 @Configuration
@@ -115,13 +109,13 @@ public abstract class AbstractMongoDao<T extends AbstractMongoEntity> {
   }
 
   private void setSystemAttributesForCreate(T entity) {
-    entity.setCeTime(Instant.now());
-    entity.setMeTime(Instant.now());
+    entity.setCreateEntityTime(Instant.now());
+    entity.setModifyEntityTime(Instant.now());
     entity.setModifyNumber(0);
   }
 
   private void setSystemAttributesForUpdate(T entity) {
-    entity.setMeTime(Instant.now());
+    entity.setModifyEntityTime(Instant.now());
     entity.setModifyNumber(entity.getModifyNumber() + 1);
   }
 }
