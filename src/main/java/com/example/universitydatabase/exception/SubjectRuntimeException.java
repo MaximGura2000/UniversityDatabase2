@@ -1,5 +1,9 @@
 package com.example.universitydatabase.exception;
 
+import com.example.universitydatabase.exception.appbase.abstracts.AppRuntimeException;
+import com.example.universitydatabase.exception.appbase.interfaces.ErrorCode;
+import java.util.Map;
+
 public class SubjectRuntimeException extends AppRuntimeException {
 
   private static final String SUB_APP_SUBJECT_CREATE = "subject/create";
@@ -8,36 +12,28 @@ public class SubjectRuntimeException extends AppRuntimeException {
   public static final String MONGO_EXCEPTION = "mongoException";
   public static final String MONGO_QUERY = "Unexpected error occurs during mongo query.";
 
-  public SubjectRuntimeException(SubjectRuntimeException.Error error, Throwable cause, Object... params) {
-    super(error.getCode(), error.getMessage(), cause, params);
+  public SubjectRuntimeException(SubjectRuntimeException.Error error, Throwable cause) {
+    super(error.getCode(), error.getMessage(), cause);
   }
 
-  public SubjectRuntimeException(SubjectRuntimeException.Error error, Object... params) {
-    super(error.getCode(), error.getMessage(), params);
-  }
-
-  public SubjectRuntimeException(String code, String message, Object... params) {
-    super(code, message, params);
-  }
-
-  public SubjectRuntimeException(String code, String message, Throwable cause, Object... params) {
-    super(code, message, cause, params);
+  public SubjectRuntimeException(SubjectRuntimeException.Error error, Map<String, ?> paramsMap) {
+    super(error.getCode(), error.getMessage(), paramsMap);
   }
 
   public enum Error {
-    INVALID_DTO_IN_CREATE(SUB_APP_SUBJECT_CREATE + INVALID_DTO_IN, INVALID_DTO_IN_MESSAGE),
-    MONGO_ERROR_CREATE(SUB_APP_SUBJECT_CREATE + MONGO_EXCEPTION, MONGO_QUERY);
+    INVALID_DTO_IN_CREATE(ErrorCode.application(SUB_APP_SUBJECT_CREATE + INVALID_DTO_IN), INVALID_DTO_IN_MESSAGE),
+    MONGO_ERROR_CREATE(ErrorCode.application(SUB_APP_SUBJECT_CREATE + MONGO_EXCEPTION), MONGO_QUERY);
 
-    private final String code;
+    private final ErrorCode code;
 
     private final String message;
 
-    Error(String code, String message) {
+    Error(ErrorCode code, String message) {
       this.code = code;
       this.message = message;
     }
 
-    public String getCode() {
+    public ErrorCode getCode() {
       return code;
     }
 

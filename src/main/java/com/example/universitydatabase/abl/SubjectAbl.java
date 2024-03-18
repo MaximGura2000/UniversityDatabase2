@@ -4,6 +4,7 @@ import com.example.universitydatabase.api.dto.subject.SubjectCreateDtoIn;
 import com.example.universitydatabase.api.dto.subject.SubjectCreateDtoOut;
 import com.example.universitydatabase.dao.mongo.SubjectMongoDao;
 import com.example.universitydatabase.entity.Subject;
+import com.example.universitydatabase.exception.DatastoreRuntimeException;
 import com.example.universitydatabase.exception.SubjectRuntimeException;
 import com.example.universitydatabase.exception.SubjectRuntimeException.Error;
 import com.mongodb.MongoException;
@@ -53,9 +54,9 @@ public class SubjectAbl {
     try {
       this.subjectMongoDao.create(subject);
       dtoOut.setSubject(subject);
-    } catch (MongoException exception) {
+    } catch (DatastoreRuntimeException | MongoException exception) {
       LOGGER.info("Error while adding subject to MongoDb");
-      throw new SubjectRuntimeException(Error.MONGO_ERROR_CREATE, exception, new HashMap<>());
+      throw new SubjectRuntimeException(Error.MONGO_ERROR_CREATE, exception);
     }
 
 

@@ -2,11 +2,12 @@ package com.example.universitydatabase.dao.mongo;
 
 import com.example.universitydatabase.entity.AbstractMongoEntity;
 import com.example.universitydatabase.enums.DatastoreConstants;
-import com.example.universitydatabase.exception.DatascoreRuntimeException;
-import com.example.universitydatabase.exception.DatascoreRuntimeException.Error;
+import com.example.universitydatabase.exception.DatastoreRuntimeException;
+import com.example.universitydatabase.exception.DatastoreRuntimeException.Error;
 import com.mongodb.DuplicateKeyException;
 import com.mongodb.client.MongoCollection;
 import java.time.Instant;
+import java.util.HashMap;
 import java.util.Objects;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -79,9 +80,9 @@ public abstract class AbstractMongoDao<T extends AbstractMongoEntity> {
     try {
       mongoTemplate.insert(entity, mongoTemplate.getCollectionName(entity.getClass()));
     } catch (DuplicateKeyException e) {
-      throw new DatascoreRuntimeException(Error.NOT_UNIQUE_ID, e);
+      throw new DatastoreRuntimeException(Error.NOT_UNIQUE_ID, e, new HashMap<>());
     } catch (DataAccessException e) {
-      throw new DatascoreRuntimeException(Error.DATASTORE_UNEXPECTED_ERROR, e);
+      throw new DatastoreRuntimeException(Error.DATASTORE_UNEXPECTED_ERROR, e, new HashMap<>());
     }
     LOGGER.info("Inserting one object to {} collection finished.", this.collection.getNamespace().getCollectionName());
     return entity;
@@ -97,14 +98,14 @@ public abstract class AbstractMongoDao<T extends AbstractMongoEntity> {
       bsonSize += 17;
     }
     if (bsonSize > DatastoreConstants.DEFAULT_MAXIMUM_SOI) {
-      throw new DatascoreRuntimeException(Error.SOI_EXCEEDED);
+      throw new DatastoreRuntimeException(Error.SOI_EXCEEDED, new HashMap<>());
     }
   }
 
   private void checkObjectNumber(MongoCollection<Document> collection, int addCount) {
     long collectionSize = collection.countDocuments();
     if (collectionSize + addCount > DatastoreConstants.DEFAULT_MAXIMUM_NOI) {
-      throw new DatascoreRuntimeException(Error.NOI_EXCEEDED);
+      throw new DatastoreRuntimeException(Error.NOI_EXCEEDED, new HashMap<>());
     }
   }
 

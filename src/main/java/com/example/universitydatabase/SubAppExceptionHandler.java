@@ -1,6 +1,6 @@
 package com.example.universitydatabase;
 
-import com.fasterxml.jackson.databind.JsonMappingException;
+import com.example.universitydatabase.exception.appbase.abstracts.AppRuntimeException;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
@@ -11,14 +11,34 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class SubAppExceptionHandler {
 
-  @ExceptionHandler(JsonMappingException.class)
-  public ResponseEntity<Object> handleJsonMappingException(JsonMappingException ex) {
+  @ExceptionHandler(AppRuntimeException.class)
+  public ResponseEntity<Object> handleJsonMappingException(AppRuntimeException exception) {
     // Custom error handling logic here
     Map<String, Object> errorResponse = new HashMap<>();
-    errorResponse.put("status", HttpStatus.BAD_REQUEST.value());
-    errorResponse.put("error", "Bad Request");
-    errorResponse.put("message", ex.getLocalizedMessage());
+    errorResponse.put("code", resolveHttpStatus(exception).value());
+    errorResponse.put("status", resolveHttpStatus(exception));
+    errorResponse.put("error", exception.toString());
+    errorResponse.put("message", exception.getLocalizedMessage());
 
     return ResponseEntity.badRequest().body(errorResponse);
+  }
+
+  private HttpStatus resolveHttpStatus(AppRuntimeException exception) {
+    HttpStatus status;
+    switch (exception.getCode().getType()) {
+      case SYSTEM:
+        status = HttpStatus.INTERNAL_SERVER_ERROR;
+        break;
+      case APPLICATION:
+        status = HttpStatus.BAD_REQUEST;
+        break;
+      case UNAVAILABLE:
+        status = HttpStatus.SERVICE_UNAVAILABLE;
+        break;
+      default:
+        status = HttpStatus.INTERNAL_SERVER_ERROR;
+        break;
+    }
+    return status;
   }
 }
