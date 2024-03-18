@@ -17,7 +17,7 @@ public class SubjectRuntimeException extends AppRuntimeException {
   }
 
   public SubjectRuntimeException(SubjectRuntimeException.Error error, Map<String, ?> paramsMap) {
-    super(error.getCode(), error.getMessage(), paramsMap);
+    super(error.getCode(), error.getMessage(), paramsMap, null);
   }
 
   public enum Error {

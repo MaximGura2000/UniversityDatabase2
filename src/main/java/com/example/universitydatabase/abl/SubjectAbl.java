@@ -39,7 +39,7 @@ public class SubjectAbl {
     if (!validationResult.isEmpty()) {
       HashMap<String, Object> params = new HashMap<>();
       for (ConstraintViolation<SubjectCreateDtoIn> result: validationResult) {
-        params.put(result.getMessage(), result.getInvalidValue());
+        params.put(result.getPropertyPath().toString(), result.getMessage() + ", received: " + result.getInvalidValue());
       }
       throw new SubjectRuntimeException(Error.INVALID_DTO_IN_CREATE, params);
     }

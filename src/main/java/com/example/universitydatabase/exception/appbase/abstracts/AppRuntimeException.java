@@ -27,8 +27,30 @@ public abstract class AppRuntimeException extends BaseRuntimeException{
   protected AppRuntimeException(ErrorCode code, String message, Map<String, ?> paramMap, Throwable cause, Map<String, ?> dtoOut, Object... params) {
     super(code, message, cause, params);
     this.paramMap = paramMap;
-    // this.uuAppErrorMap.addError(this);
     this.dtoOut = dtoOut;
   }
 
+  public Map<String, ?> getParamMap() {
+    return paramMap;
+  }
+
+  public void setParamMap(Map<String, ?> paramMap) {
+    this.paramMap = paramMap;
+  }
+
+  public Map<String, ?> getDtoOut() {
+    return dtoOut;
+  }
+
+  public void setDtoOut(Map<String, ?> dtoOut) {
+    this.dtoOut = dtoOut;
+  }
+
+  public HttpHeaders getResponseHeaders() {
+    return responseHeaders;
+  }
+
+  public void setResponseHeaders(HttpHeaders responseHeaders) {
+    this.responseHeaders = responseHeaders;
+  }
 }
