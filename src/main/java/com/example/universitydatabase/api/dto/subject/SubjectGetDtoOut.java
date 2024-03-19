@@ -2,6 +2,6 @@ package com.example.universitydatabase.api.dto.subject;
 
 import com.example.universitydatabase.entity.Subject;
 
-public class SubjectCreateDtoOut extends SubjectDtoOut{
+public class SubjectGetDtoOut extends SubjectDtoOut{
 
 }

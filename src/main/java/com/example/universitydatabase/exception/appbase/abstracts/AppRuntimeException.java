@@ -1,7 +1,6 @@
 package com.example.universitydatabase.exception.appbase.abstracts;
 
 import com.example.universitydatabase.exception.appbase.interfaces.ErrorCode;
-import java.time.ZonedDateTime;
 import java.util.Map;
 import org.springframework.http.HttpHeaders;
 

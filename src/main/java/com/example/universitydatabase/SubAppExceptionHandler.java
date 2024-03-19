@@ -19,7 +19,7 @@ public class SubAppExceptionHandler {
     errorResponse.put("status", resolveHttpStatus(exception));
     errorResponse.put("error", exception.toString());
     errorResponse.put("message", exception.getLocalizedMessage());
-    if (!exception.getParamMap().isEmpty()) {
+    if (exception.getParamMap() != null && !exception.getParamMap().isEmpty()) {
       errorResponse.put("invalidValuesMap", exception.getParamMap());
     }
 

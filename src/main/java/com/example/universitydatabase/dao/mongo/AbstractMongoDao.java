@@ -1,5 +1,6 @@
 package com.example.universitydatabase.dao.mongo;
 
+import com.example.universitydatabase.dao.ListPage;
 import com.example.universitydatabase.entity.AbstractMongoEntity;
 import com.example.universitydatabase.enums.DatastoreConstants;
 import com.example.universitydatabase.exception.DatastoreRuntimeException;
@@ -8,6 +9,7 @@ import com.mongodb.DuplicateKeyException;
 import com.mongodb.client.MongoCollection;
 import java.time.Instant;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,9 +18,13 @@ import org.bson.BasicBSONObject;
 import org.bson.Document;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.index.IndexDefinition;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.util.Assert;
 
 @Configuration
@@ -64,6 +70,35 @@ public abstract class AbstractMongoDao<T extends AbstractMongoEntity> {
     return insertOne(entity);
   }
 
+  public T get(String id) {
+    Assert.notNull(id, "Id cannot be null");
+    return findOne(idQuery(id));
+  }
+
+  protected T findOne(Query query) {
+    Assert.notNull(query, "Query must not be null.");
+    return mongoTemplate.findOne(query, getEntityClass());
+  }
+
+  protected List<T> find(Query query, final ListPage page) {
+    Assert.notNull(query, "Query must not be null.");
+
+    ListPage listPage = page != null ? page : new ListPage();
+
+    if (listPage.getPageIndex() == null) {
+      listPage.setPageIndex(ListPage.DEFAULT_PAGE_INDEX);
+    }
+    if (listPage.getPageSize() == null) {
+      listPage.setPageSize(ListPage.DEFAULT_PAGE_SIZE);
+    }
+
+    Pageable pageable = PageRequest.of(listPage.getPageIndex(), listPage.getPageSize());
+    return mongoTemplate.find(query.with(pageable), getEntityClass());
+  }
+
+  private Query idQuery(String id) {
+    return new Query().addCriteria(Criteria.where(ATTR_ID).is(id));
+  }
   abstract void createSchema();
 
   protected void createIndex(IndexDefinition index) {
