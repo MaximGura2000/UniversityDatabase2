@@ -32,6 +32,7 @@ public class SubjectAbl {
 
   private static final Logger LOGGER = LogManager.getLogger(SubjectAbl.class);
   public static final String RECEIVED = ", received: ";
+  public static final String ERROR_WHILE_MODIFYING_SUBJECT_AT_MONGO_DB = "Error while modifying subject at MongoDb";
 
   private final Validator validator;
   private final SubjectMongoDao subjectMongoDao;
@@ -205,7 +206,7 @@ public class SubjectAbl {
     try {
       subject = this.subjectMongoDao.update(subject);
     } catch (DatastoreRuntimeException | MongoException exception) {
-      LOGGER.info("Error while modifying subject at MongoDb");
+      LOGGER.info(ERROR_WHILE_MODIFYING_SUBJECT_AT_MONGO_DB);
       throw new SubjectRuntimeException(Error.MONGO_ERROR_UPDATE, exception);
     }
 
@@ -254,7 +255,7 @@ public class SubjectAbl {
       this.subjectMongoDao.delete(subject);
       dtoOut.setSubject(subject);
     } catch (DatastoreRuntimeException | MongoException exception) {
-      LOGGER.info("Error while modifying subject at MongoDb");
+      LOGGER.info(ERROR_WHILE_MODIFYING_SUBJECT_AT_MONGO_DB);
       throw new SubjectRuntimeException(Error.MONGO_ERROR_UPDATE, exception);
     }
 
@@ -294,7 +295,7 @@ public class SubjectAbl {
       this.subjectMongoDao.update(subject);
       dtoOut.setSubject(subject);
     } catch (DatastoreRuntimeException | MongoException exception) {
-      LOGGER.info("Error while modifying subject at MongoDb");
+      LOGGER.info(ERROR_WHILE_MODIFYING_SUBJECT_AT_MONGO_DB);
       throw new SubjectRuntimeException(Error.MONGO_ERROR_UPDATE_SHORT_NAME, exception);
     }
 

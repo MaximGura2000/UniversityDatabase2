@@ -43,4 +43,9 @@ public class DefaultErrorCode implements ErrorCode {
     DefaultErrorCode errorCode = (DefaultErrorCode) o;
     return this.code.equals(errorCode.code) && this.type.equals(errorCode.type);
   }
+
+  @Override
+  public int hashCode() {
+    return super.hashCode();
+  }
 }

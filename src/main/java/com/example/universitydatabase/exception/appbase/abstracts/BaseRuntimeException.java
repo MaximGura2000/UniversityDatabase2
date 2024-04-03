@@ -13,10 +13,10 @@ public abstract class BaseRuntimeException extends RuntimeException {
 
   private static final Logger LOGGER = LogManager.getLogger(BaseRuntimeException.class);
 
-  private String id;
-  private ZonedDateTime createTime;
-  private ErrorCode code;
-  private String message;
+  private final String id;
+  private final ZonedDateTime createTime;
+  private final ErrorCode code;
+  private final String message;
 
   /**
    * Buffers the full exception message
@@ -100,37 +100,13 @@ public abstract class BaseRuntimeException extends RuntimeException {
     return id;
   }
 
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public ZonedDateTime getCreateTime() {
-    return createTime;
-  }
-
   public ErrorCode getCode() {
     return code;
-  }
-
-  public void setCode(ErrorCode code) {
-    this.code = code;
   }
 
   @Override
   public String getMessage() {
     return message;
-  }
-
-  public void setMessage(String message) {
-    this.message = message;
-  }
-
-  public String getFullMessage() {
-    return fullMessage;
-  }
-
-  public void setFullMessage(String fullMessage) {
-    this.fullMessage = fullMessage;
   }
 
   @Override

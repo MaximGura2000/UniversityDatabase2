@@ -25,4 +25,8 @@ public final class DatastoreConstants {
    * Default time to live of lock object in seconds.
    */
   public static final int DEFAULT_LOCK_DURATION = 60;
+
+  private DatastoreConstants() {
+    throw new IllegalStateException("Datastore constant enum class");
+  }
 }

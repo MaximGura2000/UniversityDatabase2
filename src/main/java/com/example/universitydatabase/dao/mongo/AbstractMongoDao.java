@@ -161,7 +161,6 @@ public abstract class AbstractMongoDao<T extends AbstractMongoEntity> {
    * @return modified entity from mongoDB
    */
   protected T findOneAndUpdate(Query query, T entity) {
-    int originalModifyNumber = entity.getModifyNumber();
     prepareUpdate(entity);
     T updateResult = null;
     try {

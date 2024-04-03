@@ -2,7 +2,6 @@ package com.example.universitydatabase.exception.appbase.abstracts;
 
 import com.example.universitydatabase.exception.appbase.interfaces.ErrorCode;
 import java.util.Map;
-import org.springframework.http.HttpHeaders;
 
 /**
  * RuntimeException for UniversityDatabase app
@@ -11,9 +10,8 @@ public abstract class AppRuntimeException extends BaseRuntimeException{
 
   public static final ErrorCode UNEXPECTED_ERROR = ErrorCode.system("UNEXPECTED_APP_ERROR");
 
-  private Map<String, ?> paramMap;
-  private Map<String, ?> dtoOut;
-  private HttpHeaders responseHeaders;
+  private final Map<String, ?> paramMap;
+  private final Map<String, ?> dtoOut;
 
   protected AppRuntimeException(ErrorCode code, String message, Object... params) {
     this(code, message, null, params);
@@ -36,23 +34,7 @@ public abstract class AppRuntimeException extends BaseRuntimeException{
     return paramMap;
   }
 
-  public void setParamMap(Map<String, ?> paramMap) {
-    this.paramMap = paramMap;
-  }
-
   public Map<String, ?> getDtoOut() {
     return dtoOut;
-  }
-
-  public void setDtoOut(Map<String, ?> dtoOut) {
-    this.dtoOut = dtoOut;
-  }
-
-  public HttpHeaders getResponseHeaders() {
-    return responseHeaders;
-  }
-
-  public void setResponseHeaders(HttpHeaders responseHeaders) {
-    this.responseHeaders = responseHeaders;
   }
 }
