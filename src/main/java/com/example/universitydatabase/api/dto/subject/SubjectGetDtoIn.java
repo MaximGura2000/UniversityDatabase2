@@ -2,6 +2,9 @@ package com.example.universitydatabase.api.dto.subject;
 
 import javax.validation.constraints.Size;
 
+/**
+ * DtoIn body for subject/get command
+ */
 public class SubjectGetDtoIn {
 
   @Size(min = 24, max = 24)

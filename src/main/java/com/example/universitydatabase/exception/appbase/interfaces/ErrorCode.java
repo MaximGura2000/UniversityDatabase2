@@ -4,6 +4,9 @@ import com.example.universitydatabase.exception.appbase.DefaultErrorCode;
 import com.example.universitydatabase.exception.appbase.enums.ErrorType;
 import java.io.Serializable;
 
+/**
+ * ErrorCode interface to be used
+ */
 public interface ErrorCode extends Serializable {
 
   String getErrorCode();

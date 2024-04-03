@@ -2,6 +2,9 @@ package com.example.universitydatabase.entity;
 
 import java.time.Instant;
 
+/**
+ * Abstract class for all objects which will be stored at MongoDB
+ */
 public class AbstractMongoEntity {
 
   private String id;

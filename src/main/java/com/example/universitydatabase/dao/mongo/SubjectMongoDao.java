@@ -28,12 +28,22 @@ public class SubjectMongoDao extends AbstractMongoDao<Subject> {
     createIndex(new Index().on(SUBJECT_NAME, Direction.ASC).on(SUBJECT_CREDITS, Direction.ASC).unique());
   }
 
+  /**
+   * get subject from MongoDB based on its shortName
+   * @param shortName of subject
+   * @return {@link Subject}
+   */
   public Subject getByShortName(String shortName) {
     Query query = new Query().addCriteria(Criteria.where(SUBJECT_SHORT_NAME).is(shortName));
 
     return super.findOne(query);
   }
 
+  /**
+   * list Subject from MongoDB based on some criteria
+   * @param dtoIn with list criteria
+   * @return list of {@link Subject}
+   */
   public List<Subject> listByCriteria(SubjectListDtoIn dtoIn) {
     Query query = new Query();
     Criteria criteria = new Criteria();

@@ -1,5 +1,8 @@
 package com.example.universitydatabase.dao;
 
+/**
+ * Dto for list commands
+ */
 public class ListPage {
 
   public static final int DEFAULT_PAGE_INDEX = 0;

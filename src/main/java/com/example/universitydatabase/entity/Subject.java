@@ -1,5 +1,8 @@
 package com.example.universitydatabase.entity;
 
+/**
+ * Class for Subject representation
+ */
 public class Subject extends AbstractMongoEntity {
 
   private String subjectName;

@@ -4,6 +4,9 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
+/**
+ * DtoIn body for subject/update command
+ */
 public class SubjectUpdateDtoIn {
 
   @Size(min = 24, max = 24)

@@ -1,7 +1,8 @@
 package com.example.universitydatabase.api.dto.subject;
 
-import com.example.universitydatabase.entity.Subject;
-
+/**
+ * DtoOut for subject/create command
+ */
 public class SubjectCreateDtoOut extends SubjectDtoOut{
 
 }

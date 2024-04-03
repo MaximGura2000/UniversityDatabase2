@@ -1,5 +1,8 @@
 package com.example.universitydatabase.enums;
 
+/**
+ * Some constants for MongoDB
+ */
 public final class DatastoreConstants {
 
   /**

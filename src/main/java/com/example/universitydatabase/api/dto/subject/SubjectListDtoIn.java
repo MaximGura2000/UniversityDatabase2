@@ -4,6 +4,9 @@ import com.example.universitydatabase.dao.ListPage;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
+/**
+ * DtoIn body for subject/list command
+ */
 public class SubjectListDtoIn {
 
   @Min(0) @Max(15)

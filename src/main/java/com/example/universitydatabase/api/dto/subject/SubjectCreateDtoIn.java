@@ -4,6 +4,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ * DtoIn body for subject/create command
+ */
 public class SubjectCreateDtoIn {
 
   @NotNull

@@ -1,5 +1,8 @@
 package com.example.universitydatabase.entity;
 
+/**
+ * Abstract Person class to be used
+ */
 public abstract class Person extends AbstractMongoEntity {
 
   private String name;

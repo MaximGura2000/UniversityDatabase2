@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * Indicates command with certain path, requestMethod.
+ *
+ * Annotation expected to be used at Controller class to specify commands
+ */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
@@ -23,20 +28,4 @@ public @interface Command {
 
   @AliasFor(annotation = RequestMapping.class)
   RequestMethod[] method() default {RequestMethod.POST};
-
-  boolean primaryMapping() default false;
-
-  @AliasFor(annotation = RequestMapping.class)
-  String[] headers() default {};
-
-  @AliasFor(annotation = RequestMapping.class)
-  String[] consumes() default {MediaType.ALL_VALUE };
-
-  @AliasFor(annotation = RequestMapping.class)
-  String[] produces() default {};
-
-  @AliasFor(annotation = RequestMapping.class)
-  String[] params() default {};
-
-  String spp() default "";
 }

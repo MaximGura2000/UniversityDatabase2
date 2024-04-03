@@ -4,6 +4,9 @@ import com.example.universitydatabase.exception.appbase.interfaces.ErrorCode;
 import java.util.Map;
 import org.springframework.http.HttpHeaders;
 
+/**
+ * RuntimeException for UniversityDatabase app
+ */
 public abstract class AppRuntimeException extends BaseRuntimeException{
 
   public static final ErrorCode UNEXPECTED_ERROR = ErrorCode.system("UNEXPECTED_APP_ERROR");
